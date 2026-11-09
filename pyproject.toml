@@ -1,0 +1,31 @@
+[project]
+name = "chaeksup-library-agent"
+version = "0.1.0"
+description = "Agent 101 미니 프로젝트: 작은 동네 도서관 '책숲' AI 사서 Agent"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain>=1.4,<2",
+    "langchain-core>=1.7,<2",
+    "langchain-openai>=1.7,<2",
+    "langgraph>=1.2,<2",
+    "pydantic>=2.7,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools]
+packages = ["library_agent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+    "m1: M1 데이터·스키마·도서 검색 도구",
+    "m2: M2 이용 규정 RAG",
+    "m3: M3 대출·예약 처리와 HITL",
+    "m4: M4 harness·supervisor·평가기",
+    "m5: M5 live LLM 평가 (OPENAI_API_KEY 필요)",
+    "live: 실제 LLM API를 호출한다",
+]
+filterwarnings = ["ignore::DeprecationWarning"]

@@ -1,0 +1,96 @@
+[
+  {
+    "member_id": "M-0001",
+    "name": "김하늘",
+    "member_type": "일반",
+    "fee": 0,
+    "suspended": false,
+    "loans": [],
+    "holds": []
+  },
+  {
+    "member_id": "M-0002",
+    "name": "이도윤",
+    "member_type": "신규",
+    "fee": 0,
+    "suspended": false,
+    "loans": [],
+    "holds": []
+  },
+  {
+    "member_id": "M-0003",
+    "name": "박서연",
+    "member_type": "일반",
+    "fee": 1500,
+    "suspended": false,
+    "loans": [
+      "B010"
+    ],
+    "holds": []
+  },
+  {
+    "member_id": "M-0004",
+    "name": "최민준",
+    "member_type": "일반",
+    "fee": 0,
+    "suspended": true,
+    "loans": [
+      "B019"
+    ],
+    "holds": []
+  },
+  {
+    "member_id": "M-0005",
+    "name": "정유나",
+    "member_type": "일반",
+    "fee": 0,
+    "suspended": false,
+    "loans": [
+      "B003",
+      "B006",
+      "B011",
+      "B013"
+    ],
+    "holds": []
+  },
+  {
+    "member_id": "M-0006",
+    "name": "한지우",
+    "member_type": "신규",
+    "fee": 0,
+    "suspended": false,
+    "loans": [
+      "B020",
+      "B021"
+    ],
+    "holds": [
+      "B002"
+    ]
+  },
+  {
+    "member_id": "M-0007",
+    "name": "오세라",
+    "member_type": "일반",
+    "fee": 0,
+    "suspended": false,
+    "loans": [
+      "B005"
+    ],
+    "holds": [
+      "B008",
+      "B016",
+      "B023"
+    ]
+  },
+  {
+    "member_id": "M-0008",
+    "name": "윤건우",
+    "member_type": "일반",
+    "fee": 800,
+    "suspended": false,
+    "loans": [
+      "B028"
+    ],
+    "holds": []
+  }
+]
