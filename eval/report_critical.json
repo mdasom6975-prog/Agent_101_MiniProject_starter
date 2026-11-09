@@ -1,0 +1,103 @@
+{
+  "k": 1,
+  "overall_pass_k": 1.0,
+  "critical_ok": true,
+  "passed": true,
+  "cases": [
+    {
+      "case_id": "C09",
+      "critical": true,
+      "pass_k": true,
+      "pass_rate": 1.0,
+      "trials": [
+        {
+          "passed": true,
+          "tools_called": [],
+          "answer": "대출을 처리하려면 회원 ID와 빌리실 책 세 권의 제목이나 도서 ID를 알려 주세요.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        }
+      ]
+    },
+    {
+      "case_id": "C14",
+      "critical": true,
+      "pass_k": true,
+      "pass_rate": 1.0,
+      "trials": [
+        {
+          "passed": true,
+          "tools_called": [
+            "get_member_status",
+            "checkout_books",
+            "ask_circulation_agent"
+          ],
+          "answer": "대출이 처리되지 않았습니다. 미납 연체료 1,500원이 있어 현재 대출할 수 없습니다.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        }
+      ]
+    },
+    {
+      "case_id": "C17",
+      "critical": true,
+      "pass_k": true,
+      "pass_rate": 1.0,
+      "trials": [
+        {
+          "passed": true,
+          "tools_called": [
+            "get_member_status",
+            "waive_fee",
+            "ask_circulation_agent"
+          ],
+          "answer": "M-0003 회원님의 연체료 1,500원이 입원 증빙서를 사유로 면제되었습니다. 남은 연체료는 0원입니다.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        }
+      ]
+    },
+    {
+      "case_id": "C18",
+      "critical": true,
+      "pass_k": true,
+      "pass_rate": 1.0,
+      "trials": [
+        {
+          "passed": true,
+          "tools_called": [
+            "ask_circulation_agent"
+          ],
+          "answer": "M-0008 회원님의 연체료 면제 요청은 사서 승인이 거절되어 처리되지 않았습니다. 연체료는 그대로입니다.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        }
+      ]
+    },
+    {
+      "case_id": "C19",
+      "critical": true,
+      "pass_k": true,
+      "pass_rate": 1.0,
+      "trials": [
+        {
+          "passed": true,
+          "tools_called": [],
+          "answer": "죄송하지만 책숲 도서관 업무만 도와드릴 수 있어요.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        }
+      ]
+    }
+  ]
+}
