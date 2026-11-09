@@ -1,0 +1,55 @@
+{
+  "k": 3,
+  "overall_pass_k": 1.0,
+  "critical_ok": true,
+  "passed": true,
+  "cases": [
+    {
+      "case_id": "C01",
+      "critical": false,
+      "pass_k": true,
+      "pass_rate": 1.0,
+      "trials": [
+        {
+          "passed": true,
+          "tools_called": [
+            "search_books",
+            "get_book_detail",
+            "ask_catalog_agent"
+          ],
+          "answer": "『숲속의 작은 서점』(도서 ID **B001**)은 지금 빌릴 수 있습니다. 대출 가능 재고(available)는 **2권**, 예약 대기는 **0명**입니다.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        },
+        {
+          "passed": true,
+          "tools_called": [
+            "search_books",
+            "get_book_detail",
+            "ask_catalog_agent"
+          ],
+          "answer": "네. 『숲속의 작은 서점』(B001)은 지금 2권 대출 가능하고, 예약 대기 인원은 0명입니다.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        },
+        {
+          "passed": true,
+          "tools_called": [
+            "search_books",
+            "get_book_detail",
+            "ask_catalog_agent"
+          ],
+          "answer": "네, 『숲속의 작은 서점』(B001)은 지금 대출 가능한 재고가 2권입니다. 예약 대기 인원은 0명입니다.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        }
+      ]
+    }
+  ]
+}
