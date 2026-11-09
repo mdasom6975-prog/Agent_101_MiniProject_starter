@@ -7,6 +7,7 @@ import json
 from langchain_core.retrievers import BaseRetriever
 from langchain_core.tools import BaseTool, tool
 
+from .rag import format_docs
 from .schemas import Genre
 from .store import LibraryStore
 
@@ -48,7 +49,21 @@ def make_catalog_tools(store: LibraryStore) -> list[BaseTool]:
 
 
 def make_rule_tools(retrievers: dict[str, BaseRetriever]) -> list[BaseTool]:
-    raise NotImplementedError("M2: make_rule_tools")
+    specs = [
+        ("loan", "search_loan_rules", "대출·반납 규정(대출 권수, 대출 기간, 연장, 예약, 반납 방법)에서 질문과 관련된 조항을 검색한다."),
+        ("overdue", "search_overdue_rules", "연체·이용 제한 규정(연체료, 대출 정지, 이용 정지, 연체료 면제, 분실·훼손)에서 질문과 관련된 조항을 검색한다."),
+        ("facility", "search_facility_rules", "시설·프로그램 규정(운영 시간, 휴관일, 열람실, 스터디룸, 독서 모임, 문화 행사)에서 질문과 관련된 조항을 검색한다."),
+    ]
+
+    def make_one(topic: str, name: str, description: str) -> BaseTool:
+        # topic을 인자로 묶어 반복문의 late binding 문제를 피한다.
+        def search(query: str) -> str:
+            return format_docs(retrievers[topic].invoke(query))
+
+        search.__doc__ = f"{description}\n\nArgs:\n    query: 찾고 싶은 내용을 담은 검색어 또는 질문."
+        return tool(name)(search)
+
+    return [make_one(*spec) for spec in specs]
 
 
 def make_circulation_tools(store: LibraryStore) -> list[BaseTool]:

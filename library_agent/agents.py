@@ -5,11 +5,14 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from langchain.agents import create_agent
 from langchain_core.language_models import BaseChatModel
 from langchain_core.retrievers import BaseRetriever
 from langchain_core.tools import BaseTool
 
+from .middleware import default_middleware
 from .store import LibraryStore
+from .tools import make_rule_tools
 
 SUPERVISOR_MODEL_CALL_LIMIT = 8
 SUBAGENT_MODEL_CALL_LIMIT = 6
@@ -34,7 +37,14 @@ def build_catalog_agent(model: BaseChatModel, store: LibraryStore, *, log_path: 
 
 def build_rules_agent(model: BaseChatModel, retrievers: dict[str, BaseRetriever], *, log_path: Path | str | None = None,
                       model_call_limit: int = SUBAGENT_MODEL_CALL_LIMIT, checkpointer: Any | None = None):
-    raise NotImplementedError("M2: build_rules_agent")
+    return create_agent(
+        model,
+        tools=make_rule_tools(retrievers),
+        system_prompt=RULES_PROMPT,
+        middleware=default_middleware("rules_agent", log_path=log_path, model_call_limit=model_call_limit),
+        checkpointer=checkpointer,
+        name="rules_agent",
+    )
 
 
 def build_circulation_agent(model: BaseChatModel, store: LibraryStore, *, log_path: Path | str | None = None,
