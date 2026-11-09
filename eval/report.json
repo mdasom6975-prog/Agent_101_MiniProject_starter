@@ -1,8 +1,8 @@
 {
   "k": 3,
-  "overall_pass_k": 0.95,
-  "critical_ok": false,
-  "passed": false,
+  "overall_pass_k": 1.0,
+  "critical_ok": true,
+  "passed": true,
   "cases": [
     {
       "case_id": "C01",
@@ -14,10 +14,9 @@
           "passed": true,
           "tools_called": [
             "search_books",
-            "get_book_detail",
             "ask_catalog_agent"
           ],
-          "answer": "네, 『숲속의 작은 서점』(B001)은 지금 2권 대출 가능합니다. 예약 대기 인원은 0명입니다.",
+          "answer": "네, 『숲속의 작은 서점』(B001)은 지금 대출 가능합니다. 현재 대출 가능한 재고(available)는 2권입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -29,7 +28,7 @@
             "search_books",
             "ask_catalog_agent"
           ],
-          "answer": "네, 『숲속의 작은 서점』(도서 ID B001)은 지금 2권 대출 가능합니다.",
+          "answer": "네, 『숲속의 작은 서점』(도서 ID: **B001**)은 지금 빌릴 수 있습니다. 대출 가능한 재고는 **2권**입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -39,10 +38,9 @@
           "passed": true,
           "tools_called": [
             "search_books",
-            "get_book_detail",
             "ask_catalog_agent"
           ],
-          "answer": "네, 지금 빌릴 수 있습니다. 『숲속의 작은 서점』(도서 ID **B001**)은 대출 가능 재고(available) **2권**, 예약 대기 **0명**입니다.",
+          "answer": "네, 『숲속의 작은 서점』(도서 ID: B001)은 지금 대출 가능한 재고가 2권 있습니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -62,7 +60,7 @@
             "search_books",
             "ask_catalog_agent"
           ],
-          "answer": "한서윤 작가의 책은 다음과 같습니다.\n\n- **《숲속의 작은 서점》 (B001)**: 대출 가능 2권\n- **《느리게 걷는 하루》 (B013)**: 대출 가능 1권",
+          "answer": "한서윤 작가의 책은 다음과 같습니다.\n\n- 《숲속의 작은 서점》 — 도서 ID B001, 지금 대출 가능 2권\n- 《느리게 걷는 하루》 — 도서 ID B013, 지금 대출 가능 1권",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -72,11 +70,9 @@
           "passed": true,
           "tools_called": [
             "search_books",
-            "get_book_detail",
-            "get_book_detail",
             "ask_catalog_agent"
           ],
-          "answer": "한서윤 작가의 책은 다음과 같습니다.\n\n- **숲속의 작은 서점** (도서 ID: **B001**) — 대출 가능 2권, 예약 대기 0명\n- **느리게 걷는 하루** (도서 ID: **B013**) — 대출 가능 1권, 예약 대기 0명",
+          "answer": "한서윤 작가의 책은 다음과 같습니다.\n\n- **《숲속의 작은 서점》** — 도서 ID **B001**, 지금 대출 가능 2권\n- **《느리게 걷는 하루》** — 도서 ID **B013**, 지금 대출 가능 1권",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -108,7 +104,7 @@
             "search_books",
             "ask_catalog_agent"
           ],
-          "answer": "지금 바로 대출 가능한 IT 분야 책입니다.\n\n- 《파이썬으로 시작하는 데이터 분석》 — 김태호 (도서 ID **B003**), available **1권**\n- 《처음 만나는 인공지능》 — 이수진 (도서 ID **B004**), available **2권**\n- 《검색 증강 생성의 이해》 — 김태호 (도서 ID **B024**), available **2권**",
+          "answer": "지금 바로 대출 가능한 IT 분야 책은 다음과 같습니다.\n\n| 도서 ID | 제목 | 저자 | 대출 가능 재고(available) |\n|---|---|---|---:|\n| B003 | 파이썬으로 시작하는 데이터 분석 | 김태호 | 1권 |\n| B004 | 처음 만나는 인공지능 | 이수진 | 2권 |\n| B024 | 검색 증강 생성의 이해 | 김태호 | 2권 |",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -120,7 +116,7 @@
             "search_books",
             "ask_catalog_agent"
           ],
-          "answer": "지금 바로 대출 가능한 IT 분야 책입니다.\n\n- **B003** — 《파이썬으로 시작하는 데이터 분석》, 김태호 — available: **1권**\n- **B004** — 《처음 만나는 인공지능》, 이수진 — available: **2권**\n- **B024** — 《검색 증강 생성의 이해》, 김태호 — available: **2권**",
+          "answer": "지금 바로 대출 가능한 IT 분야 책입니다.\n\n- **B003** — 『파이썬으로 시작하는 데이터 분석』, 김태호 — available: 1권\n- **B004** — 『처음 만나는 인공지능』, 이수진 — available: 2권\n- **B024** — 『검색 증강 생성의 이해』, 김태호 — available: 2권",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -152,7 +148,7 @@
             "search_books",
             "ask_catalog_agent"
           ],
-          "answer": "『해리 포터와 마법사의 돌』은 소장하고 있지 않습니다. 검색 결과가 없어 도서 ID, 대출 가능 재고, 예약 대기 인원을 확인할 수 없습니다.",
+          "answer": "『해리 포터와 마법사의 돌』은 검색 결과가 없어 책숲에서 소장하고 있지 않습니다. 따라서 도서 ID, 대출 가능한 재고, 예약 대기 인원은 확인할 수 없습니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -164,7 +160,7 @@
             "search_books",
             "ask_catalog_agent"
           ],
-          "answer": "책숲 검색 결과, 『해리 포터와 마법사의 돌』은 소장하고 있지 않습니다. 도서 ID와 대출 가능 재고는 확인할 수 없습니다.",
+          "answer": "『해리 포터와 마법사의 돌』은 소장하고 있지 않습니다. 검색 결과가 없어 도서 ID, 대출 가능 권수(available), 예약 대기 인원을 확인할 수 없습니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -176,7 +172,7 @@
             "search_books",
             "ask_catalog_agent"
           ],
-          "answer": "『해리 포터와 마법사의 돌』은 소장하고 있지 않습니다. 따라서 도서 ID, 대출 가능 재고, 예약 대기 인원도 확인할 수 없습니다.",
+          "answer": "『해리 포터와 마법사의 돌』은 검색 결과가 없어 소장하고 있지 않습니다. 도서 ID와 현재 대출 가능한 재고(available)도 확인할 수 없습니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -196,7 +192,7 @@
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "신규 회원은 가입 후 30일 동안 최대 3권까지 대출할 수 있습니다. 가입 후 30일이 지나면 일반 회원으로 전환됩니다. **근거: 제2조(대출 권수)**",
+          "answer": "신규 회원은 가입 후 30일 동안 최대 3권까지 빌릴 수 있습니다. 가입 후 30일이 지나면 일반 회원으로 전환됩니다. (제2조)",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -208,7 +204,7 @@
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "신규 회원은 가입 후 30일 동안 최대 3권까지 빌릴 수 있습니다. 가입 후 30일이 지나면 일반 회원으로 전환됩니다. (제2조(대출 권수))",
+          "answer": "신규 회원은 가입 후 30일 동안 최대 3권까지 빌릴 수 있습니다. 30일이 지나면 일반 회원으로 전환됩니다. 근거: 제2조(대출 권수).",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -220,7 +216,7 @@
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "신규 회원은 가입 후 30일 동안 도서를 최대 3권까지 빌릴 수 있습니다. 30일이 지나면 일반 회원으로 전환됩니다. (제2조)",
+          "answer": "신규 회원은 가입 후 30일 동안 최대 3권까지 빌릴 수 있습니다. 30일이 지나면 일반 회원으로 전환됩니다. (제2조)",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -240,7 +236,7 @@
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "대출 기간은 최대 **14일**이며, 대출할 때 **1일 이상 14일 이하**로 정할 수 있습니다(제3조).",
+          "answer": "대출 기간은 **최대 14일**이며, 기본 대출 기간도 **14일**입니다. 반납 예정일이 휴관일이면 다음 개관일까지 반납하면 됩니다. **근거: 제3조(대출 기간)**.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -252,7 +248,7 @@
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "대출 기간은 최대 **14일**입니다. 근거: **제3조(대출 기간)**.",
+          "answer": "대출 기간은 최대 **14일**입니다(제3조). 반납 예정일 전에 연장하면 **1회 7일**을 더 이용할 수 있어, 연장 조건을 충족하면 총 **최대 21일**입니다(제4조).",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -264,7 +260,7 @@
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "대출 기간은 회원이 1일 이상 14일 이하로 정할 수 있어 최대 **14일**입니다. 기본 대출 기간도 14일입니다. 반납 예정일이 휴관일이면 다음 개관일까지 반납하면 됩니다(제3조).\n\n반납 예정일 전에는 **1회에 한해 7일 연장**할 수 있습니다. 다른 회원이 예약한 도서는 연장할 수 없고, 연체 중인 회원도 연장할 수 없습니다(제4조).",
+          "answer": "대출 기간은 최대 14일입니다. 회원은 1일 이상 14일 이하로 정할 수 있습니다(제3조).",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -284,7 +280,7 @@
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "대출 연장은 **1회에 한해 7일** 가능합니다. 반납 예정일 전에 신청해야 하며, 다른 회원이 예약한 도서나 연체 중인 회원은 연장할 수 없습니다(**제4조**).",
+          "answer": "대출 연장은 **1회에 한해 7일** 할 수 있습니다. 반납 예정일 전에 신청해야 하며, 다른 회원이 예약한 도서나 연체 중인 회원의 대출은 연장할 수 없습니다(제4조).",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -296,7 +292,7 @@
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "대출 연장은 **1회까지**, **7일 연장**할 수 있습니다. 반납 예정일 전에 신청해야 하며 예약이 걸린 도서는 연장할 수 없습니다. **제4조(대출 연장)**.",
+          "answer": "대출 연장은 **1회**, 한 번에 **7일**까지 가능합니다. 반납 예정일 전에 신청해야 하며, 다른 회원이 예약한 도서나 연체 중인 회원의 대출은 연장할 수 없습니다. **근거: 제4조(대출 연장)**",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -308,7 +304,7 @@
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "대출은 **1회**, 한 번에 **7일** 연장할 수 있습니다. 반납 예정일 전에 신청해야 하며, 예약이 걸린 도서나 연체 중인 회원은 연장할 수 없습니다(**제4조**).",
+          "answer": "대출 연장은 **1회까지**, 한 번에 **7일** 연장할 수 있습니다(제4조). 반납 예정일 전에 신청해야 하며, 예약된 도서나 연체 중인 회원의 대출은 연장할 수 없습니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -328,7 +324,7 @@
             "search_overdue_rules",
             "ask_rules_agent"
           ],
-          "answer": "제7조(연체료)에 따라 반납 예정일을 넘긴 도서는 **1권당 하루 100원**의 연체료가 부과됩니다. 1권당 상한은 **3,000원**이며, 휴관일도 연체 일수에 포함됩니다.",
+          "answer": "연체료는 **도서 1권당 하루 100원**이며, **제7조(연체료)**에 규정되어 있습니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -340,7 +336,7 @@
             "search_overdue_rules",
             "ask_rules_agent"
           ],
-          "answer": "제7조(연체료)에 따르면 반납 예정일을 넘긴 도서는 **1권당 하루 100원**의 연체료가 부과됩니다. 연체료 상한은 1권당 3,000원이며, 휴관일도 연체 일수에 포함됩니다.",
+          "answer": "연체료는 **도서 1권당 하루 100원**입니다. 상한은 **1권당 3,000원**이며, **휴관일도 연체 일수에 포함**됩니다. (제7조)",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -352,7 +348,7 @@
             "search_overdue_rules",
             "ask_rules_agent"
           ],
-          "answer": "연체료는 **도서 1권당 하루 100원**입니다. 1권당 상한은 **3,000원**이며, 휴관일도 연체 일수에 포함됩니다. **제7조**입니다.",
+          "answer": "반납 예정일을 넘긴 도서는 **1권당 하루 100원**의 연체료가 부과되며, **1권당 상한은 3,000원**입니다. 휴관일도 연체 일수에 포함됩니다(제7조).",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -369,7 +365,16 @@
         {
           "passed": true,
           "tools_called": [],
-          "answer": "대출을 진행하려면 회원 ID와 빌리실 책 세 권의 제목 또는 도서 ID를 알려 주세요.",
+          "answer": "대출을 처리하려면 회원 ID와 빌리실 책 세 권의 제목(또는 도서 ID)을 알려 주세요.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        },
+        {
+          "passed": true,
+          "tools_called": [],
+          "answer": "대출 처리를 위해 회원 ID가 필요합니다. 빌리실 책 세 권의 제목이나 도서 ID도 알려 주세요.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -379,15 +384,6 @@
           "passed": true,
           "tools_called": [],
           "answer": "대출을 처리하려면 회원 ID와 빌리실 책 3권의 제목 또는 도서 ID를 알려 주세요.",
-          "missing_tools": [],
-          "forbidden_used": [],
-          "missing_keywords": [],
-          "error": null
-        },
-        {
-          "passed": true,
-          "tools_called": [],
-          "answer": "대출 처리를 위해 회원 ID와 빌리고 싶은 책 세 권의 제목 또는 도서 ID를 알려 주세요.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -407,7 +403,7 @@
             "search_facility_rules",
             "ask_rules_agent"
           ],
-          "answer": "책숲 도서관은 매주 월요일 휴관이라 문을 열지 않습니다. 월요일 운영 시간은 없습니다. 제12조(운영 시간)에 따른 안내입니다.",
+          "answer": "아니요. 책숲 도서관은 **매주 월요일 휴관**입니다. 월요일 운영 시간은 없으며, **제12조(운영 시간)**에 따른 안내입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -419,7 +415,7 @@
             "search_facility_rules",
             "ask_rules_agent"
           ],
-          "answer": "아니요. 책숲 도서관은 **매주 월요일 휴관**합니다. (제12조)",
+          "answer": "아니요. 책숲 도서관은 **매주 월요일에 휴관**하며, **법정 공휴일도 휴관**합니다. (제12조)",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -431,7 +427,7 @@
             "search_facility_rules",
             "ask_rules_agent"
           ],
-          "answer": "아니요. 책숲 도서관은 **매주 월요일 휴관**입니다. 운영 시간은 **화~금요일 09:00~20:00**, **토·일요일 09:00~17:00**입니다(**제12조**).",
+          "answer": "아니요. 책숲 도서관은 **매주 월요일 휴관**입니다. 화요일~금요일은 09:00~20:00, 토요일~일요일은 09:00~17:00 운영합니다. **근거: 제12조(운영 시간)**",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -451,7 +447,7 @@
             "search_facility_rules",
             "ask_rules_agent"
           ],
-          "answer": "스터디룸은 회원 **2명 이상** 함께 이용할 수 있습니다. (제14조)",
+          "answer": "스터디룸은 최소 2명부터 이용할 수 있습니다. (제14조)",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -463,7 +459,7 @@
             "search_facility_rules",
             "ask_rules_agent"
           ],
-          "answer": "스터디룸은 회원 2명 이상부터 이용할 수 있습니다. 근거: 제14조(스터디룸).",
+          "answer": "스터디룸은 **2명 이상**부터 이용할 수 있습니다(제14조).",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -475,7 +471,7 @@
             "search_facility_rules",
             "ask_rules_agent"
           ],
-          "answer": "스터디룸은 회원 **2명 이상**부터 이용할 수 있습니다. (제14조)",
+          "answer": "스터디룸은 2명부터 이용할 수 있습니다. 근거는 제14조(스터디룸)입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -492,24 +488,11 @@
         {
           "passed": true,
           "tools_called": [
-            "search_loan_rules",
             "search_facility_rules",
+            "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "신규 회원은 가입 후 **30일 동안 최대 3권**까지 빌릴 수 있습니다. (제2조) 독서 모임에 참여하면 해당 월의 대출 가능 권수가 **2권 추가**됩니다. (제15조)",
-          "missing_tools": [],
-          "forbidden_used": [],
-          "missing_keywords": [],
-          "error": null
-        },
-        {
-          "passed": true,
-          "tools_called": [
-            "search_loan_rules",
-            "search_facility_rules",
-            "ask_rules_agent"
-          ],
-          "answer": "신규 회원은 가입 후 30일 동안 최대 **3권**까지 빌릴 수 있습니다. 독서 모임에 참여하면 그달 대출 권수가 **2권 추가**됩니다.\n\n근거: **제2조(대출 권수)**, **제15조(독서 프로그램)**.",
+          "answer": "신규 회원은 가입 후 30일 동안 최대 **3권**까지 대출할 수 있습니다. 독서 모임에 참여하면 **그달 대출 권수가 2권 추가**됩니다.\n\n근거: **제2조(대출 권수), 제15조(독서 프로그램)**",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -522,7 +505,20 @@
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "신규 회원은 가입 후 **30일 동안 최대 3권**까지 빌릴 수 있습니다. 30일이 지나면 일반 회원으로 전환되어 1인당 최대 5권까지 대출할 수 있습니다. *(제2조(대출 권수))*\n\n독서 모임에 참여하면 **그달 대출 권수가 2권 추가**됩니다. 신규 회원도 참여할 수 있으며, 모임은 매월 둘째 주 토요일 오후 2시에 열립니다. *(제15조(독서 프로그램))*",
+          "answer": "신규 회원은 가입 후 30일 동안 최대 **3권**까지 대출할 수 있습니다(제2조). 독서 모임에 참여하면 그달 대출 가능 권수가 **2권 추가**됩니다(제15조). 두 규정이 함께 적용되면 그달에는 최대 **5권**까지 대출할 수 있습니다.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        },
+        {
+          "passed": true,
+          "tools_called": [
+            "search_facility_rules",
+            "search_loan_rules",
+            "ask_rules_agent"
+          ],
+          "answer": "신규 회원은 가입 후 30일 동안 최대 3권까지 빌릴 수 있고, 30일이 지나면 일반 회원으로 전환됩니다(제2조).\n\n책숲 새싹 독서 모임은 매월 둘째 주 토요일 오후 2시에 열리며, 신규 회원도 참여할 수 있습니다. 참여하면 그달 대출 권수가 2권 추가됩니다(제15조).",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -543,7 +539,7 @@
             "checkout_books",
             "ask_circulation_agent"
           ],
-          "answer": "회원 M-0001님의 B004 「처음 만나는 인공지능」을 7일간 대출 처리했습니다. 반납 예정일은 2026년 11월 10일이며, 남은 대출 가능 권수는 4권입니다.",
+          "answer": "M-0001 회원님의 B004 도서 대출이 완료되었습니다. 반납 예정일은 2026-11-10이며, 남은 대출 가능 권수는 4권입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -552,10 +548,11 @@
         {
           "passed": true,
           "tools_called": [
+            "get_member_status",
             "checkout_books",
             "ask_circulation_agent"
           ],
-          "answer": "회원 ID M-0001의 B004 『처음 만나는 인공지능』을 7일간 대출 처리했습니다. 반납 예정일은 2026-11-10이며, 남은 대출 가능 권수는 4권입니다.",
+          "answer": "회원 M-0001님의 B004(『처음 만나는 인공지능』)을 7일간 대출 처리했습니다. 반납 예정일은 2026-11-10이며, 남은 대출 가능 권수는 4권입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -564,10 +561,11 @@
         {
           "passed": true,
           "tools_called": [
+            "get_member_status",
             "checkout_books",
             "ask_circulation_agent"
           ],
-          "answer": "B004 「처음 만나는 인공지능」을 7일 대출 처리했습니다. 반납 예정일은 2026-11-10이며, 남은 대출 가능 권수는 4권입니다.",
+          "answer": "B004 『처음 만나는 인공지능』을 7일간 대출 처리했습니다. 반납 예정일은 **2026년 11월 10일**이며, 남은 대출 가능 권수는 **4권**입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -578,8 +576,8 @@
     {
       "case_id": "C14",
       "critical": true,
-      "pass_k": false,
-      "pass_rate": 0.6666666666666666,
+      "pass_k": true,
+      "pass_rate": 1.0,
       "trials": [
         {
           "passed": true,
@@ -588,26 +586,10 @@
             "checkout_books",
             "ask_circulation_agent"
           ],
-          "answer": "M-0003 회원님은 미납 연체료 1,500원이 있어 대출 처리가 되지 않았습니다.",
+          "answer": "회원 ID M-0003의 도서 ID B001 대출은 처리되지 않았습니다. 미납 연체료 1,500원으로 인해 대출할 수 없습니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
-          "error": null
-        },
-        {
-          "passed": false,
-          "tools_called": [
-            "search_loan_rules",
-            "ask_rules_agent"
-          ],
-          "answer": "대출 기간은 기본 14일이며, 1일 이상 14일 이하로 정할 수 있습니다(제3조). B001을 며칠간 빌리시겠어요?",
-          "missing_tools": [
-            "ask_circulation_agent"
-          ],
-          "forbidden_used": [],
-          "missing_keywords": [
-            "1500원"
-          ],
           "error": null
         },
         {
@@ -617,7 +599,20 @@
             "checkout_books",
             "ask_circulation_agent"
           ],
-          "answer": "회원님(M-0003)은 미납 연체료 1,500원으로 인해 B001 도서 대출 처리가 되지 않았습니다.",
+          "answer": "회원 ID M-0003님의 도서 ID B001 대출이 처리되지 않았습니다. 미납 연체료 1,500원이 있어 대출할 수 없습니다.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        },
+        {
+          "passed": true,
+          "tools_called": [
+            "get_member_status",
+            "checkout_books",
+            "ask_circulation_agent"
+          ],
+          "answer": "M-0003 회원님의 B001 대출은 처리되지 않았습니다. 미납 연체료 1,500원이 있어 대출할 수 없습니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -634,22 +629,10 @@
         {
           "passed": true,
           "tools_called": [
-            "get_member_status",
-            "ask_circulation_agent"
-          ],
-          "answer": "회원 M-0002는 대출 한도가 3권이고 현재 대출 중인 도서는 없습니다. 요청하신 B001, B004, B009, B012 네 권은 한 번에 대출할 수 없으니, 대출할 도서 3권을 선택해 주세요.",
-          "missing_tools": [],
-          "forbidden_used": [],
-          "missing_keywords": [],
-          "error": null
-        },
-        {
-          "passed": true,
-          "tools_called": [
             "checkout_books",
             "ask_circulation_agent"
           ],
-          "answer": "M-0002 회원님의 대출 처리가 되지 않았습니다. 현재 대출 0권에 요청하신 4권을 더하면 4권으로, 대출 한도 3권을 초과합니다.",
+          "answer": "대출이 처리되지 않았습니다. 현재 대출 중인 책은 0권이고 대출 한도는 3권인데, 4권을 요청해 한도를 초과했습니다. 따라서 B001, B004, B009, B012 모두 대출되지 않았습니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -661,7 +644,19 @@
             "get_member_status",
             "ask_circulation_agent"
           ],
-          "answer": "회원 M-0002의 대출 한도는 3권이고, 현재 대출 중인 도서는 없습니다. 요청하신 도서 B001, B004, B009, B012 네 권은 한 번에 대출할 수 없으니, 대출할 3권을 골라 주세요.",
+          "answer": "회원 M-0002는 현재 대출 중인 도서가 0권이고, 대출 한도는 3권입니다. 요청하신 도서 B001, B004, B009, B012 중 4권은 한도를 초과해 대출 처리되지 않았습니다. 대출할 도서 3권을 골라 알려 주세요.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        },
+        {
+          "passed": true,
+          "tools_called": [
+            "get_member_status",
+            "ask_circulation_agent"
+          ],
+          "answer": "회원 M-0002의 대출 한도는 3권이며, 현재 대출 중인 책은 없습니다. 요청하신 4권은 한도를 초과해 대출 처리하지 않았습니다. 대출할 도서 3권을 선택해 주세요.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -681,7 +676,19 @@
             "place_hold",
             "ask_circulation_agent"
           ],
-          "answer": "M-0001 회원님의 『달빛 정원의 고양이』(B002) 예약이 완료되었습니다. 예약 순번은 2번입니다.",
+          "answer": "회원 ID M-0001의 『달빛 정원의 고양이』(B002) 예약이 완료되었습니다. 현재 예약 순번은 **2번**입니다.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        },
+        {
+          "passed": true,
+          "tools_called": [
+            "place_hold",
+            "ask_circulation_agent"
+          ],
+          "answer": "M-0001 회원님의 『달빛 정원의 고양이』(B002) 예약이 완료되었습니다. 현재 예약 순번은 2번입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -694,19 +701,7 @@
             "place_hold",
             "ask_circulation_agent"
           ],
-          "answer": "『달빛 정원의 고양이』(B002) 예약이 완료되었습니다. 예약 순번은 2번입니다.",
-          "missing_tools": [],
-          "forbidden_used": [],
-          "missing_keywords": [],
-          "error": null
-        },
-        {
-          "passed": true,
-          "tools_called": [
-            "place_hold",
-            "ask_circulation_agent"
-          ],
-          "answer": "『달빛 정원의 고양이』(B002) 예약이 완료되었습니다. 예약 순번은 2번입니다.",
+          "answer": "『달빛 정원의 고양이』(B002)를 예약했습니다. 예약 순번은 2번입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -726,7 +721,7 @@
             "waive_fee",
             "ask_circulation_agent"
           ],
-          "answer": "M-0003 회원의 연체료 면제가 사서 승인으로 처리되었습니다. 연체료 1,500원이 면제되어 남은 연체료는 0원입니다.",
+          "answer": "M-0003 회원의 입원 증빙서에 따른 연체료 면제가 승인되었습니다. 1,500원이 면제되어 남은 연체료는 0원입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -738,7 +733,7 @@
             "waive_fee",
             "ask_circulation_agent"
           ],
-          "answer": "회원 M-0003의 입원 증빙서를 근거로 연체료 1,500원이 면제되었습니다. 남은 연체료는 0원입니다.",
+          "answer": "회원 ID M-0003의 입원 증빙서를 근거로 사서 승인되어 연체료 1,500원이 면제되었습니다. 미납 연체료는 0원입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -750,7 +745,7 @@
             "waive_fee",
             "ask_circulation_agent"
           ],
-          "answer": "M-0003 회원의 연체료 면제가 승인되었습니다. 연체료 1,500원이 면제되어 남은 연체료는 0원입니다.",
+          "answer": "M-0003 회원의 연체료 1,500원이 사서 승인으로 면제되었습니다. 남은 연체료는 0원입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -770,7 +765,19 @@
             "get_member_status",
             "ask_circulation_agent"
           ],
-          "answer": "M-0008 회원님의 연체료 면제 요청은 거절되어 처리되지 않았습니다. 연체료 800원은 그대로입니다.",
+          "answer": "M-0008 회원님의 연체료 면제 요청이 거절되었습니다. 연체료 800원은 그대로입니다.",
+          "missing_tools": [],
+          "forbidden_used": [],
+          "missing_keywords": [],
+          "error": null
+        },
+        {
+          "passed": true,
+          "tools_called": [
+            "get_member_status",
+            "ask_circulation_agent"
+          ],
+          "answer": "M-0008 회원님의 연체료 면제 요청은 거절되어 처리되지 않았습니다. 사서 승인이 이루어지지 않았으며, 연체료 800원은 그대로입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -781,18 +788,7 @@
           "tools_called": [
             "ask_circulation_agent"
           ],
-          "answer": "회원 ID M-0008의 연체료 면제 요청은 거절되어 처리되지 않았습니다. 연체료는 그대로입니다.",
-          "missing_tools": [],
-          "forbidden_used": [],
-          "missing_keywords": [],
-          "error": null
-        },
-        {
-          "passed": true,
-          "tools_called": [
-            "ask_circulation_agent"
-          ],
-          "answer": "M-0008 회원님의 연체료 면제 요청은 거절되어 처리되지 않았습니다. 연체료는 그대로 남아 있습니다.",
+          "answer": "M-0008 회원의 연체료 면제 요청이 거절되었습니다. 연체료는 그대로입니다.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -809,7 +805,7 @@
         {
           "passed": true,
           "tools_called": [],
-          "answer": "죄송하지만 책숲에서는 도서관 업무만 도와드릴 수 있어요.",
+          "answer": "저는 도서관 업무만 도와드릴 수 있어요. 날씨는 다른 서비스에서 확인해 주세요.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -845,12 +841,11 @@
           "passed": true,
           "tools_called": [
             "search_books",
-            "get_book_detail",
             "ask_catalog_agent",
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "『기후의 시간』(도서 ID **B008**)은 대출 가능한 재고(available)가 **0권**이라 지금은 빌릴 수 없습니다. 예약 대기 인원은 **1명**입니다.\n\n모든 재고가 대출 중인 도서만 예약할 수 있고, 1인당 최대 **3권**까지 예약할 수 있습니다. 반납되면 순번대로 알림을 보내며 **3일간** 보관합니다. (제5조)",
+          "answer": "『기후의 시간』(도서 ID **B008**)은 현재 대출 가능한 재고가 **0권**이라 지금 빌릴 수 없습니다.\n\n모든 재고가 대출 중일 때 예약할 수 있으며, 1인당 최대 **3권**까지 예약할 수 있습니다. 반납되면 순번대로 알림을 받고 **3일간** 보관됩니다. 근거: **제5조(예약)**.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -859,13 +854,13 @@
         {
           "passed": true,
           "tools_called": [
-            "search_loan_rules",
             "search_books",
+            "search_loan_rules",
             "get_book_detail",
             "ask_rules_agent",
             "ask_catalog_agent"
           ],
-          "answer": "『기후의 시간』(도서 ID **B008**)은 지금 대출 가능한 재고가 **0권**이라 빌릴 수 없습니다. 예약 대기 인원은 **1명**입니다.\n\n모든 재고가 대출 중인 도서만 예약할 수 있으며, 1인당 최대 **3권**까지 예약할 수 있습니다. 반납되면 순번대로 알림을 보내고 **3일간** 보관합니다. **제5조(예약)**에 따른 규정입니다.",
+          "answer": "『기후의 시간』(도서 ID **B008**)은 현재 대출 가능한 재고가 **0권**이라 지금 빌릴 수 없습니다. 예약 대기 인원은 **1명**입니다.\n\n모든 재고가 대출 중일 때 예약할 수 있고, 1인당 최대 **3권**까지 예약할 수 있습니다. 책이 반납되면 순번대로 알림을 보내며 **3일간** 보관합니다. **근거: 제5조(예약)**.",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
@@ -875,12 +870,11 @@
           "passed": true,
           "tools_called": [
             "search_books",
-            "get_book_detail",
             "ask_catalog_agent",
             "search_loan_rules",
             "ask_rules_agent"
           ],
-          "answer": "『기후의 시간』(B008, 윤지호)은 대출 가능한 재고가 **0권**이라 지금 빌릴 수 없고, 예약 대기 인원은 **1명**입니다.\n\n모든 재고가 대출 중인 도서만 예약할 수 있으며, 1인당 최대 **3권**까지 예약 가능합니다. 반납되면 대기 순번대로 알림을 보내고 **3일간 보관**합니다. (제5조) 예약 신청 방법은 규정에서 확인되지 않았습니다.",
+          "answer": "『기후의 시간』(도서 ID **B008**)은 현재 대출 가능한 재고(available)가 **0권**이라 빌릴 수 없습니다. 모든 재고가 대출 중이면 예약할 수 있고, 1인당 최대 **3권**까지 예약 가능합니다. 반납되면 순번대로 알림을 보내며 **3일간** 보관합니다. (**제5조**)",
           "missing_tools": [],
           "forbidden_used": [],
           "missing_keywords": [],
