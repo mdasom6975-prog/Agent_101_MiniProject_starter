@@ -8,11 +8,11 @@ from typing import Any
 from langchain.agents import create_agent
 from langchain_core.language_models import BaseChatModel
 from langchain_core.retrievers import BaseRetriever
-from langchain_core.tools import BaseTool
+from langchain_core.tools import BaseTool, StructuredTool
 
 from .middleware import default_middleware, make_hitl_middleware
 from .store import LibraryStore
-from .tools import make_circulation_tools, make_rule_tools
+from .tools import make_catalog_tools, make_circulation_tools, make_rule_tools
 
 SUPERVISOR_MODEL_CALL_LIMIT = 8
 SUBAGENT_MODEL_CALL_LIMIT = 6
@@ -32,7 +32,14 @@ SUBAGENT_TOOL_SPECS: dict[str, tuple[str, str]] = {
 
 def build_catalog_agent(model: BaseChatModel, store: LibraryStore, *, log_path: Path | str | None = None,
                         model_call_limit: int = SUBAGENT_MODEL_CALL_LIMIT, checkpointer: Any | None = None):
-    raise NotImplementedError("M4: build_catalog_agent")
+    return create_agent(
+        model,
+        tools=make_catalog_tools(store),
+        system_prompt=CATALOG_PROMPT,
+        middleware=default_middleware("catalog_agent", log_path=log_path, model_call_limit=model_call_limit),
+        checkpointer=checkpointer,
+        name="catalog_agent",
+    )
 
 
 def build_rules_agent(model: BaseChatModel, retrievers: dict[str, BaseRetriever], *, log_path: Path | str | None = None,
@@ -63,9 +70,23 @@ def build_circulation_agent(model: BaseChatModel, store: LibraryStore, *, log_pa
 
 
 def make_subagent_tool(agent: Any, name: str, description: str) -> BaseTool:
-    raise NotImplementedError("M4: make_subagent_tool")
+    """subagent를 `request: str` 하나를 받는 도구로 감싼다. config는 넘기지 않는다."""
+
+    def ask(request: str) -> str:
+        result = agent.invoke({"messages": [{"role": "user", "content": request}]})
+        return str(result["messages"][-1].text)
+
+    return StructuredTool.from_function(func=ask, name=name, description=description)
 
 
 def build_supervisor(model: BaseChatModel, subagents: dict[str, Any], *, log_path: Path | str | None = None,
                      model_call_limit: int = SUPERVISOR_MODEL_CALL_LIMIT, checkpointer: Any | None = None):
-    raise NotImplementedError("M4: build_supervisor")
+    tools = [make_subagent_tool(subagents[role], *SUBAGENT_TOOL_SPECS[role]) for role in ("catalog", "rules", "circulation")]
+    return create_agent(
+        model,
+        tools=tools,
+        system_prompt=SUPERVISOR_PROMPT,
+        middleware=default_middleware("supervisor", log_path=log_path, model_call_limit=model_call_limit),
+        checkpointer=checkpointer,
+        name="supervisor",
+    )

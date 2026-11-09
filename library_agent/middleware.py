@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import json
+import time
 from collections.abc import Callable
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -13,6 +16,7 @@ from langchain.agents.middleware import (
     ToolErrorMiddleware,
 )
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+from langgraph.errors import GraphBubbleUp
 
 from .errors import LibraryError
 
@@ -66,14 +70,51 @@ class LoopGuardMiddleware(AgentMiddleware):
 
 class JsonlTraceMiddleware(AgentMiddleware):
     def __init__(self, log_path: Path | str, agent_name: str) -> None:
-        raise NotImplementedError("M4: JsonlTraceMiddleware")
+        super().__init__()
+        self.log_path = Path(log_path)
+        self.agent_name = agent_name
+
+    @property
+    def name(self) -> str:
+        # 같은 이름의 middleware가 중복되면 create_agent가 오류를 내므로 agent별로 다르게 한다.
+        return f"JsonlTraceMiddleware[{self.agent_name}]"
+
+    def _append(self, request: Any, status: str, output: Any, started: float) -> None:
+        row = {
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "agent": self.agent_name,
+            "tool": request.tool_call["name"],
+            "args": request.tool_call["args"],
+            "tool_call_id": request.tool_call["id"],
+            "status": status,
+            "output": str(output)[:OUTPUT_PREVIEW_CHARS],
+            "duration_ms": round((time.perf_counter() - started) * 1000, 2),
+        }
+        self.log_path.parent.mkdir(parents=True, exist_ok=True)
+        with self.log_path.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
     def wrap_tool_call(self, request: Any, handler: Callable[[Any], Any]) -> Any:
-        raise NotImplementedError("M4: JsonlTraceMiddleware.wrap_tool_call")
+        started = time.perf_counter()
+        try:
+            result = handler(request)
+        except GraphBubbleUp:
+            raise  # interrupt는 기록하지 않고 그대로 위로 올린다
+        except Exception as exc:
+            self._append(request, "exception", f"{type(exc).__name__}: {exc}", started)
+            raise
+        if isinstance(result, ToolMessage):
+            self._append(request, result.status or "success", result.content, started)
+        else:  # Command 등
+            self._append(request, "command", result, started)
+        return result
 
 
 def read_trace(log_path: Path | str) -> list[dict[str, Any]]:
-    raise NotImplementedError("M4: read_trace")
+    path = Path(log_path)
+    if not path.exists():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
 def make_hitl_middleware() -> HumanInTheLoopMiddleware:
