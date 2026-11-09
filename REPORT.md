@@ -46,7 +46,7 @@
 ## 3. harness가 실제로 막아 준 사례
 
 - **도구 오류를 모델 실수가 아닌 설명 가능한 메시지로 변환 (ToolErrorMiddleware).** C14 trial1에서 `checkout_books`가 `UnpaidFeeError`를 던졌고, 도구는 오류를 잡지 않았다. middleware가 `[UNPAID_FEE] ... 1500원`이라는 ToolMessage로 바꿔 모델에 돌려주었고 모델은 이를 그대로 회원에게 설명했다. 대출은 실행되지 않았고(원자성: 검사 통과 후에만 store 변경) 연체료 상태도 그대로였다.
-- **승인 없는 면제 차단 (HITL).** `runs/trace_sample.jsonl`(C17)에서 circulation_agent의 `waive_fee`는 CLI에서 사서가 `approve`를 입력한 뒤에만 실행됐고, 같은 흐름에서 reject하면 도구가 실행되지 않는다(테스트 T3xx로 고정). 평가기의 자동 승인은 `case.hitl == "approve"`일 때만이다.
+- **승인 없는 면제 차단 (HITL).** `runs/trace_sample.jsonl`(C17)에서 circulation_agent의 `waive_fee`는 CLI에서 사서가 `approve`를 입력한 뒤에만 실행됐고, 같은 흐름에서 reject하면 도구가 실행되지 않는다(테스트 T321~T323으로 고정). 평가기의 자동 승인은 `case.hitl == "approve"`일 때만이다.
 
 ## 4. Claude Code에 준 핵심 프롬프트 3개
 
