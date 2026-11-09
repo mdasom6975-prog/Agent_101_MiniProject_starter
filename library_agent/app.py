@@ -26,7 +26,11 @@ Decider = Callable[[dict[str, Any]], dict[str, Any]]
 
 def default_model() -> BaseChatModel:
     """init_chat_model(MODEL_NAME, model_provider="openai"). temperature를 넘기지 않는다."""
-    raise NotImplementedError("M5: default_model")
+    # import와 모델 생성은 호출 시점에만 한다 (import 시점에 모델을 만들지 않는다).
+    from langchain.chat_models import init_chat_model
+
+    # gpt-6-luna는 reasoning model이므로 temperature를 넘기지 않는다.
+    return init_chat_model(MODEL_NAME, model_provider="openai")
 
 
 def build_agent(
