@@ -8,7 +8,7 @@ from langchain_core.retrievers import BaseRetriever
 from langchain_core.tools import BaseTool, tool
 
 from .rag import format_docs
-from .schemas import Genre
+from .schemas import CheckoutRequest, FeeWaiverRequest, Genre, HoldRequest
 from .store import LibraryStore
 
 NO_BOOKS = "검색 결과가 없습니다."
@@ -67,4 +67,31 @@ def make_rule_tools(retrievers: dict[str, BaseRetriever]) -> list[BaseTool]:
 
 
 def make_circulation_tools(store: LibraryStore) -> list[BaseTool]:
-    raise NotImplementedError("M3: make_circulation_tools")
+    @tool
+    def get_member_status(member_id: str) -> str:
+        """회원의 이용 현황(연체료, 정지 여부, 대출 중 권수, 대출 한도, 예약 목록)을 조회한다.
+
+        Args:
+            member_id: 회원 ID (예: M-0001).
+        """
+        return store.member_status(member_id).model_dump_json()
+
+    @tool("checkout_books", args_schema=CheckoutRequest)
+    def checkout_books(member_id: str, book_ids: list[str], loan_days: int = 14) -> str:
+        """회원에게 도서를 대출 처리한다. 한 번에 1~5권, 대출 기간은 1~14일이며 반납 예정일을 돌려준다."""
+        req = CheckoutRequest(member_id=member_id, book_ids=book_ids, loan_days=loan_days)
+        return store.checkout(req).model_dump_json()
+
+    @tool("place_hold", args_schema=HoldRequest)
+    def place_hold(member_id: str, book_id: str) -> str:
+        """재고가 모두 대출 중인 도서를 예약한다. 대출 가능한 도서는 예약할 수 없고, 예약 순번을 돌려준다."""
+        req = HoldRequest(member_id=member_id, book_id=book_id)
+        return store.place_hold(req).model_dump_json()
+
+    @tool("waive_fee", args_schema=FeeWaiverRequest)
+    def waive_fee(member_id: str, reason: str) -> str:
+        """회원의 미납 연체료를 전액 면제한다. 사서의 승인이 있어야 실행되며, 사유는 5자 이상이어야 한다."""
+        req = FeeWaiverRequest(member_id=member_id, reason=reason)
+        return store.waive_fee(req).model_dump_json()
+
+    return [get_member_status, checkout_books, place_hold, waive_fee]

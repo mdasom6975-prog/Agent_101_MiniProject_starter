@@ -10,9 +10,9 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.retrievers import BaseRetriever
 from langchain_core.tools import BaseTool
 
-from .middleware import default_middleware
+from .middleware import default_middleware, make_hitl_middleware
 from .store import LibraryStore
-from .tools import make_rule_tools
+from .tools import make_circulation_tools, make_rule_tools
 
 SUPERVISOR_MODEL_CALL_LIMIT = 8
 SUBAGENT_MODEL_CALL_LIMIT = 6
@@ -49,7 +49,17 @@ def build_rules_agent(model: BaseChatModel, retrievers: dict[str, BaseRetriever]
 
 def build_circulation_agent(model: BaseChatModel, store: LibraryStore, *, log_path: Path | str | None = None,
                             model_call_limit: int = SUBAGENT_MODEL_CALL_LIMIT, checkpointer: Any | None = None):
-    raise NotImplementedError("M3: build_circulation_agent")
+    return create_agent(
+        model,
+        tools=make_circulation_tools(store),
+        system_prompt=CIRCULATION_PROMPT,
+        middleware=[
+            *default_middleware("circulation_agent", log_path=log_path, model_call_limit=model_call_limit),
+            make_hitl_middleware(),
+        ],
+        checkpointer=checkpointer,
+        name="circulation_agent",
+    )
 
 
 def make_subagent_tool(agent: Any, name: str, description: str) -> BaseTool:

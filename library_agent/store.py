@@ -4,10 +4,22 @@ from __future__ import annotations
 
 import json
 from copy import deepcopy
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
-from .errors import MESSAGES, BookNotFoundError, MemberNotFoundError
+from .errors import (
+    MESSAGES,
+    BookNotFoundError,
+    HoldDuplicateError,
+    HoldLimitError,
+    HoldNotAllowedError,
+    LoanLimitError,
+    MemberNotFoundError,
+    MemberSuspendedError,
+    NoFeeError,
+    NotAvailableError,
+    UnpaidFeeError,
+)
 from .schemas import (
     Book,
     CheckoutRequest,
@@ -16,6 +28,7 @@ from .schemas import (
     FeeWaiverResult,
     HoldRequest,
     HoldResult,
+    LoanItem,
     Member,
     MemberStatus,
 )
@@ -92,13 +105,55 @@ class LibraryStore:
         )
 
     def checkout(self, req: CheckoutRequest) -> CheckoutResult:
-        raise NotImplementedError("M3: LibraryStore.checkout")
+        # 1) 검사 단계: store를 바꾸지 않고 처음 걸린 오류를 raise한다 (원자성).
+        member = self.get_member(req.member_id)
+        if member.suspended:
+            raise MemberSuspendedError(MESSAGES["MEMBER_SUSPENDED"].format(member_id=member.member_id))
+        if member.fee > 0:
+            raise UnpaidFeeError(MESSAGES["UNPAID_FEE"].format(fee=member.fee))
+        books = [self.get_book(book_id) for book_id in req.book_ids]  # 요청 순서대로 BOOK_NOT_FOUND
+        limit = self.loan_limit(member.member_id)
+        if len(member.loans) + len(books) > limit:
+            raise LoanLimitError(
+                MESSAGES["LOAN_LIMIT"].format(current=len(member.loans), requested=len(books), limit=limit)
+            )
+        for book in books:  # 요청 순서대로 NOT_AVAILABLE
+            if book.available < 1:
+                raise NotAvailableError(MESSAGES["NOT_AVAILABLE"].format(book_id=book.id))
+
+        # 2) 변경 단계: 모든 검사를 통과한 뒤에만 실행한다.
+        due_date = self.today + timedelta(days=req.loan_days)
+        items: list[LoanItem] = []
+        for book in books:
+            book.available -= 1
+            member.loans.append(book.id)
+            items.append(LoanItem(book_id=book.id, title=book.title, due_date=due_date))
+        return CheckoutResult(member_id=member.member_id, loans=items, remaining_quota=limit - len(member.loans))
 
     def place_hold(self, req: HoldRequest) -> HoldResult:
-        raise NotImplementedError("M3: LibraryStore.place_hold")
+        member = self.get_member(req.member_id)
+        if member.suspended:
+            raise MemberSuspendedError(MESSAGES["MEMBER_SUSPENDED"].format(member_id=member.member_id))
+        book = self.get_book(req.book_id)
+        if book.available > 0:
+            raise HoldNotAllowedError(MESSAGES["HOLD_NOT_ALLOWED"].format(book_id=book.id))
+        queue = self.holds.setdefault(book.id, [])
+        if member.member_id in queue:
+            raise HoldDuplicateError(MESSAGES["HOLD_DUPLICATE"].format(book_id=book.id))
+        if len(member.holds) >= MAX_HOLDS:
+            raise HoldLimitError(MESSAGES["HOLD_LIMIT"].format(limit=MAX_HOLDS))
+
+        queue.append(member.member_id)
+        member.holds.append(book.id)
+        return HoldResult(member_id=member.member_id, book_id=book.id, title=book.title, queue_position=len(queue))
 
     def waive_fee(self, req: FeeWaiverRequest) -> FeeWaiverResult:
-        raise NotImplementedError("M3: LibraryStore.waive_fee")
+        member = self.get_member(req.member_id)
+        if member.fee <= 0:
+            raise NoFeeError(MESSAGES["NO_FEE"].format(member_id=member.member_id))
+        waived = member.fee
+        member.fee = 0
+        return FeeWaiverResult(member_id=member.member_id, waived_amount=waived, remaining_fee=0)
 
 
 def load_store(data_dir: Path | str = DEFAULT_DATA_DIR, today: date = DEFAULT_TODAY) -> LibraryStore:

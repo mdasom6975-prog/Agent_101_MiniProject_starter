@@ -77,7 +77,16 @@ def read_trace(log_path: Path | str) -> list[dict[str, Any]]:
 
 
 def make_hitl_middleware() -> HumanInTheLoopMiddleware:
-    raise NotImplementedError("M3: make_hitl_middleware")
+    """waive_fee 실행 전에 사서의 승인(approve/edit/reject)을 받는다. interrupt mode는 기본값."""
+    return HumanInTheLoopMiddleware(
+        interrupt_on={
+            tool_name: {
+                "allowed_decisions": ["approve", "edit", "reject"],
+                "description": "연체료 면제는 사서의 승인이 필요합니다. 승인, 수정, 거절 중 하나를 선택하세요.",
+            }
+            for tool_name in HITL_TOOLS
+        }
+    )
 
 
 def default_middleware(

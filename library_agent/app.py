@@ -35,7 +35,7 @@ def build_agent(
 
 
 def get_interrupts(result: Any) -> list[Any]:
-    raise NotImplementedError("M3: get_interrupts")
+    return result.get("__interrupt__", [])
 
 
 def answer_text(result: Any) -> str:
